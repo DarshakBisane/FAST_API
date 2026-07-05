@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, field_validator
+from pydantic import BaseModel, EmailStr, model_validator
 from typing import List, Dict
 
 class Patient(BaseModel):
@@ -8,26 +8,17 @@ class Patient(BaseModel):
     bimari : List[str]
     details : Dict[str,str]
 
-    @field_validator('name')
-    @classmethod
-    def name_validator(cls,value):
-        return value.upper()
-
-    @field_validator('email')
-    @classmethod
-    def email_validator(cls,value):
-        valid_domain = ["hdfc.com","icici.com","sbi.com"]
-
-        domain_value = value.split('@')[-1]
-        if domain_value not in valid_domain:
-            raise ValueError('Domain is not valid: cannot use the offer')
-        return value
+    @model_validator(mode='after')
+    def model_validating(cls,model):
+        if model.age>60 and 'emergency' not in model.details:
+            raise ValueError('Patient older than 60 year must have the emergency contact number')
+        return model
 
 def insert_patient(patient1:Patient):
     print(patient1.name)
     print(patient1.email)
 
-patients = {'name':'Ajay', 'age':13,'email':'Ahaysf@hdfc.com', 'details':{'ajya': 'qwerty', 'age':'12'}, 'bimari':['ajay','sumit','akshay','atul']}
+patients = {'name':'Ajay', 'age':73,'email':'Ahaysf@hdfc.com', 'details':{'ajya': 'qwerty','emergency':'9511278525', 'age':'12'}, 'bimari':['ajay','sumit','akshay','atul']}
 patient1= Patient(**patients)
 
 insert_patient(patient1)
