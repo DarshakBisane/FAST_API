@@ -4,9 +4,6 @@ from typing import List, Dict
 class Patient(BaseModel):
     name:str 
     email:EmailStr
-    age:int
-    bimari : List[str]
-    details : Dict[str,str]
 
     @field_validator('name')
     @classmethod
@@ -27,7 +24,7 @@ def insert_patient(patient1:Patient):
     print(patient1.name)
     print(patient1.email)
 
-patients = {'name':'Ajay', 'age':13,'email':'Ahaysf@hdfc.com', 'details':{'ajya': 'qwerty', 'age':'12'}, 'bimari':['ajay','sumit','akshay','atul']}
+patients = {'name':'Ajay','email':'Ahaysf@hdfc.com'}
 patient1= Patient(**patients)
 
 insert_patient(patient1)
