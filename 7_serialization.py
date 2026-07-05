@@ -7,14 +7,14 @@ class Address(BaseModel):
 
 class Patient(BaseModel):
     name : str
-    age : int
+    age : int = 12
     gender : str
     address : Address
 
 address1 = {'city':'Nagpur', 'state':'Maharashtra','pin':441907}
 add = Address(**address1)
 
-patient1 = {'name':'Darshak', 'age':19, 'gender': 'Male', 'address' : add}
+patient1 = {'name':'Darshak', 'gender': 'Male', 'address' : add}
 patient = Patient(**patient1)
 
 temp = patient.model_dump(exclude=['name']) 
@@ -28,3 +28,6 @@ print(temp3)
 
 temp4 = patient.model_dump(include={'address' : 'city'})
 print(temp4)
+
+temp5 = patient.model_dump(exclude_unset=True)
+print(temp5)
