@@ -1,0 +1,122 @@
+{
+  "student1": {
+    "id": 101,
+    "name": "Rahul Sharma",
+    "age": 20,
+    "gender": "Male",
+    "branch": "Computer Engineering",
+    "year": 3,
+    "email": "rahul.sharma@example.com",
+    "phone": "9876543210",
+    "city": "Nagpur",
+    "cgpa": 8.5
+  },
+  "student2": {
+    "id": 102,
+    "name": "Priya Verma",
+    "age": 21,
+    "gender": "Female",
+    "branch": "Information Technology",
+    "year": 3,
+    "email": "priya.verma@example.com",
+    "phone": "9876543211",
+    "city": "Pune",
+    "cgpa": 9.1
+  },
+  "student3": {
+    "id": 103,
+    "name": "Amit Patil",
+    "age": 22,
+    "gender": "Male",
+    "branch": "Mechanical Engineering",
+    "year": 4,
+    "email": "amit.patil@example.com",
+    "phone": "9876543212",
+    "city": "Mumbai",
+    "cgpa": 7.9
+  },
+  "student4": {
+    "id": 104,
+    "name": "Sneha Joshi",
+    "age": 20,
+    "gender": "Female",
+    "branch": "Electronics Engineering",
+    "year": 2,
+    "email": "sneha.joshi@example.com",
+    "phone": "9876543213",
+    "city": "Nashik",
+    "cgpa": 8.8
+  },
+  "student5": {
+    "id": 105,
+    "name": "Karan Mehta",
+    "age": 21,
+    "gender": "Male",
+    "branch": "Civil Engineering",
+    "year": 3,
+    "email": "karan.mehta@example.com",
+    "phone": "9876543214",
+    "city": "Aurangabad",
+    "cgpa": 7.6
+  },
+  "student6": {
+    "id": 106,
+    "name": "Anjali Deshmukh",
+    "age": 19,
+    "gender": "Female",
+    "branch": "Computer Engineering",
+    "year": 2,
+    "email": "anjali.deshmukh@example.com",
+    "phone": "9876543215",
+    "city": "Amravati",
+    "cgpa": 9.3
+  },
+  "student7": {
+    "id": 107,
+    "name": "Rohit Kulkarni",
+    "age": 22,
+    "gender": "Male",
+    "branch": "Electrical Engineering",
+    "year": 4,
+    "email": "rohit.kulkarni@example.com",
+    "phone": "9876543216",
+    "city": "Akola",
+    "cgpa": 8.2
+  },
+  "student8": {
+    "id": 108,
+    "name": "Pooja Singh",
+    "age": 20,
+    "gender": "Female",
+    "branch": "Artificial Intelligence",
+    "year": 3,
+    "email": "pooja.singh@example.com",
+    "phone": "9876543217",
+    "city": "Wardha",
+    "cgpa": 9.0
+  },
+  "student9": {
+    "id": 109,
+    "name": "Vikram Naik",
+    "age": 21,
+    "gender": "Male",
+    "branch": "Data Science",
+    "year": 3,
+    "email": "vikram.naik@example.com",
+    "phone": "9876543218",
+    "city": "Chandrapur",
+    "cgpa": 8.7
+  },
+  "student10": {
+    "id": 110,
+    "name": "Neha Gupta",
+    "age": 19,
+    "gender": "Female",
+    "branch": "Cyber Security",
+    "year": 2,
+    "email": "neha.gupta@example.com",
+    "phone": "9876543219",
+    "city": "Yavatmal",
+    "cgpa": 9.4
+  }
+}
