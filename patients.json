@@ -1,0 +1,132 @@
+{
+    "P001": {
+        "name": "Rahul Sharma",
+        "age": 28,
+        "gender": "Male",
+        "city": "Nagpur",
+        "height": 175.5,
+        "weight": 72.3
+    },
+    "P002": {
+        "name": "Priya Verma",
+        "age": 24,
+        "gender": "Female",
+        "city": "Pune",
+        "height": 162.8,
+        "weight": 55.4
+    },
+    "P003": {
+        "name": "Amit Patel",
+        "age": 35,
+        "gender": "Male",
+        "city": "Mumbai",
+        "height": 180.2,
+        "weight": 80.1
+    },
+    "P004": {
+        "name": "Sneha Joshi",
+        "age": 31,
+        "gender": "Female",
+        "city": "Nashik",
+        "height": 168.0,
+        "weight": 61.8
+    },
+    "P005": {
+        "name": "Rohan Mehta",
+        "age": 40,
+        "gender": "Male",
+        "city": "Delhi",
+        "height": 178.4,
+        "weight": 76.5
+    },
+    "P006": {
+        "name": "Anjali Kulkarni",
+        "age": 27,
+        "gender": "Female",
+        "city": "Hyderabad",
+        "height": 160.5,
+        "weight": 53.7
+    },
+    "P007": {
+        "name": "Vikram Singh",
+        "age": 45,
+        "gender": "Male",
+        "city": "Jaipur",
+        "height": 182.3,
+        "weight": 84.9
+    },
+    "P008": {
+        "name": "Neha Gupta",
+        "age": 22,
+        "gender": "Female",
+        "city": "Bengaluru",
+        "height": 165.7,
+        "weight": 57.2
+    },
+    "P009": {
+        "name": "Arjun Nair",
+        "age": 33,
+        "gender": "Male",
+        "city": "Kochi",
+        "height": 171.6,
+        "weight": 69.4
+    },
+    "P010": {
+        "name": "Kavya Reddy",
+        "age": 29,
+        "gender": "Female",
+        "city": "Chennai",
+        "height": 167.9,
+        "weight": 59.6
+    },
+    "P012": {
+        "name": "Darshak Bisane",
+        "age": 19,
+        "gender": "Male",
+        "city": "Kawalewada",
+        "hieght": 156.0,
+        "wieght": 54.0,
+        "bmi": 0.0,
+        "verdict": "UnderWieght"
+    },
+    "P011": {
+        "name": "Darshak Bisane",
+        "age": 19,
+        "gender": "Male",
+        "city": "Kawalewada",
+        "hieght": 156.0,
+        "wieght": 54.0,
+        "bmi": 0.0,
+        "verdict": "UnderWieght"
+    },
+    "P013": {
+        "name": "Darshak Bisane",
+        "age": 19,
+        "gender": "Male",
+        "city": "Kawalewada",
+        "hieght": 156.0,
+        "wieght": 54.0,
+        "bmi": 0.0,
+        "verdict": "UnderWieght"
+    },
+    "P014": {
+        "name": "Darshak Bisane",
+        "age": 19,
+        "gender": "Male",
+        "city": "Kawalewada",
+        "hieght": 156.0,
+        "wieght": 54.0,
+        "bmi": 0.0,
+        "verdict": "UnderWieght"
+    },
+    "P015": {
+        "name": "Darshak Bisane",
+        "age": 19,
+        "gender": "Male",
+        "city": "Kawalewada",
+        "hieght": 156.0,
+        "wieght": 54.0,
+        "bmi": 0.0,
+        "verdict": "UnderWieght"
+    }
+}
