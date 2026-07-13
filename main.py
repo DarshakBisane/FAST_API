@@ -1,101 +1,189 @@
 from fastapi import FastAPI, Path, HTTPException, Query
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field, computed_field
-from typing import Annotated, Literal
+from typing import Annotated, Literal, Optional
 import json
 
+# Initialize the FastAPI application instance.
 app = FastAPI()
 
+
+# ======================= Patient Model =======================
+
 class Patient(BaseModel):
+    # This model defines the validation rules for a patient record.
 
     id: Annotated[str, Field(..., description="Id of the patient", examples=["P001"])]
-    name : Annotated[str, Field(..., description="Name of the Patient", examples=["Darshak Bisane"])]
+    name: Annotated[str, Field(..., description="Name of the Patient", examples=["Darshak Bisane"])]
     age: Annotated[int, Field(..., description="Age of the Patient", examples=[19], gt=0, lt=130)]
-    gender: Annotated[Literal['Male','Female','Other'] ,Field(..., description="Gender of the Patient", examples=['Male'])]
-    city: Annotated[str, Field(..., description="City of the patient", examples=['Kawalewada'])]
-    hieght : Annotated[float, Field(...,gt=0, description="Hieght of the Patient in mtrs", examples=[156])]
-    wieght : Annotated[float, Field(...,gt=0, description="Wieght of the patient in Kg", examples=[54])]
+    gender: Annotated[Literal["Male", "Female", "Other"], Field(..., description="Gender", examples=["Male"])]
+    city: Annotated[str, Field(..., description="City", examples=["Kawalewada"])]
+    height: Annotated[float, Field(..., gt=0, description="Height in meters", examples=[1.56])]
+    weight: Annotated[float, Field(..., gt=0, description="Weight in kg", examples=[54])]
 
-    @computed_field  # ye dynamically field banane ke liye use hota hai aur field return karta hai jo function ke name se identify/use karte hai 
+    @computed_field
     @property
     def bmi(self) -> float:
-        bmi = round(self.wieght/(self.hieght**2),2)
-        return bmi
+        # BMI is calculated from weight and height.
+        return round(self.weight / (self.height ** 2), 2)
 
     @computed_field
     @property
     def verdict(self) -> str:
+        # This converts BMI into a simple health category.
         if self.bmi < 18.5:
-            return 'UnderWieght'
-        elif self.bmi < 25 :
-            return 'Normal'
-        elif self.bmi < 30 :
-            return 'Normal'
-        else:
-            return 'Obese'
+            return "UnderWeight"
 
-#opening the file and loading data into variable 
+        elif self.bmi < 25:
+            return "Normal"
+
+        elif self.bmi < 30:
+            return "OverWeight"
+
+        else:
+            return "Obese"
+
+
+# ======================= Update Model =======================
+
+class UpdatePatient(BaseModel):
+    # This model supports partial updates by allowing optional fields.
+
+    name: Annotated[Optional[str], Field(default=None, description="Name", examples=["Darshak"])]
+    age: Annotated[Optional[int], Field(default=None, gt=0, lt=130)]
+    gender: Annotated[
+        Optional[Literal["Male", "Female", "Other"]],
+        Field(default=None)
+    ]
+    city: Annotated[Optional[str], Field(default=None)]
+    height: Annotated[Optional[float], Field(default=None, gt=0)]
+    weight: Annotated[Optional[float], Field(default=None, gt=0)]
+
+
+# ======================= Utility Functions =======================
+
 def load_data():
-    with open('patients.json','r') as s:
-        data = json.load(s) # t read a data from json file
+    # Read all saved patient records from the JSON file.
+    with open("patients.json", "r") as f:
+        data = json.load(f)
     return data
 
-#saving the data into json file
+
 def save_data(data):
-    with open('patients.json', 'w') as f:
-        json.dump(data,f,indent=4) #to write a data into json file
+    # Save the updated data back to the JSON file.
+    with open("patients.json", "w") as f:
+        json.dump(data, f, indent=4)
+
+
+# ======================= Routes =======================
 
 @app.get("/")
-def abc():
-    return {'Patient Information API'} 
+def home():
+    # Simple health check route for the API.
+    return {"message": "Patient Information API"}
+
 
 @app.get("/view")
 def view():
-    data = load_data()
-    return data
+    # Return the complete list of patients.
+    return load_data()
 
-@app.get("/view_student/{s_id}")
-def view_student(s_id:str = Path(...,description="Id of student from json file", example="student1")):
-    #load data from json
+
+@app.get("/view_patient/{patient_id}")
+def view_patient(
+    patient_id: str = Path(..., description="Patient ID", examples=["P001"])
+):
+    # Fetch one patient by their unique ID.
     data = load_data()
 
-    if s_id in data:
-        return data[s_id]
-    raise HTTPException(status_code=404, detail=" Student not found")
+    if patient_id not in data:
+        raise HTTPException(status_code=404, detail="Patient Not Found")
+
+    return data[patient_id]
+
 
 @app.get("/sort")
-def sort_data(sorted_by: str, order: str = Query('asc')):
-    
-    valid_fields = ['id','age','name']
+def sort_data(
+    sorted_by: str = Query(...),
+    order: str = Query("asc")
+):
+    # Sort the records by name or age in ascending or descending order.
+    valid_fields = ["name", "age"]
 
     if sorted_by not in valid_fields:
-        raise HTTPException(status_code=400, detail=f'cant sort students using this column. Use: {valid_fields}')
+        raise HTTPException(
+            status_code=400,
+            detail=f"Use one of {valid_fields}"
+        )
 
-    if order not in ['asc', 'desc']:
-        raise HTTPException(status_code=400, detail="Invalid Order Use: asc/desc")
+    if order not in ["asc", "desc"]:
+        raise HTTPException(
+            status_code=400,
+            detail="Order should be asc or desc"
+        )
 
     data = load_data()
 
-    sort_order = True if order == 'desc' else False
-
-    sorted_data = sorted(data.values(), key=lambda x : x.get(sorted_by,0) , reverse=sort_order)
+    sorted_data = sorted(
+        data.values(),
+        key=lambda x: x.get(sorted_by),
+        reverse=(order == "desc")
+    )
 
     return sorted_data
 
-@app.post('/create')
-def createData(patient : Patient): # patient sidha pydantic model ko call kar rha hai.
 
-    #loading existing data
+@app.post("/create")
+def create_data(patient: Patient):
+    # Create a new patient after validating the request body.
     data = load_data()
 
-    #checking if Patient already Exists
     if patient.id in data:
-        raise HTTPException(detail='The given Patient is already exist in DataBase.', status_code=400)
+        raise HTTPException(
+            status_code=400,
+            detail="Patient already exists."
+        )
 
-    #inserting patient to the database
-    data[patient.id] = patient.model_dump(exclude=['id'])
+    data[patient.id] = patient.model_dump(exclude={"id"})
 
-    #Save data to the Json file
     save_data(data)
 
-    return JSONResponse(status_code=201, content={'message':'Patient created successfully'})
+    return JSONResponse(
+        status_code=201,
+        content={"message": "Patient created successfully"}
+    )
+
+
+@app.put("/edit/{patient_id}")
+def update_patient(
+    patient_id: str,
+    patient_info: UpdatePatient
+):
+    # Update an existing patient using the supplied fields.
+    data = load_data()
+
+    if patient_id not in data:
+        raise HTTPException(
+            status_code=404,
+            detail="Patient Not Found"
+        )
+
+    existing_patient_info = data[patient_id]
+
+    updated_patient_info = patient_info.model_dump(exclude_unset=True)
+
+    for key, value in updated_patient_info.items():
+        existing_patient_info[key] = value
+
+    existing_patient_info["id"] = patient_id
+
+    updated_patient = Patient(**existing_patient_info)
+
+    data[patient_id] = updated_patient.model_dump(exclude={"id"})
+
+    save_data(data)
+
+    return JSONResponse(
+        status_code=200,
+        content={"message": "Patient Updated Successfully"}
+    )

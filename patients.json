@@ -64,12 +64,14 @@
         "weight": 57.2
     },
     "P009": {
-        "name": "Arjun Nair",
+        "name": "AJAY MORE",
         "age": 33,
         "gender": "Male",
         "city": "Kochi",
-        "height": 171.6,
-        "weight": 69.4
+        "height": 6.0,
+        "weight": 15.0,
+        "bmi": 0.42,
+        "verdict": "UnderWeight"
     },
     "P010": {
         "name": "Kavya Reddy",
